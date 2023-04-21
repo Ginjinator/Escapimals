@@ -62,10 +62,6 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         
     }
 
-    public void testClick()
-    {
-        Debug.Log("here i am");
-    }
 
     public void moveToDiscardPile()
     {
