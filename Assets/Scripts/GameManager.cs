@@ -8,16 +8,20 @@ public class GameManager : MonoBehaviour
     public bool[] availableCardSlots;
     public Transform[] cardSlots;
     public static GameManager Instance;
-
-    public List<Card> deck = new List<Card>();
-    public List<Card> hand = new List<Card>();
-    public List<Card> discardPile = new List<Card>();
-
+    public GameObject handDisplay;
+    public GameObject cardPrefab;
+    public Transform[] clickable;
+    public List<GameObject> deck = new List<GameObject>();
+    public List<GameObject> hand = new List<GameObject>();
+    public List<GameObject> discardPile = new List<GameObject>();
     public Text deckSize;
+    public Transform start;
+    public Deck startDeck;
+    private double gap;
 
     public void drawCard()
     {
-        if (deck.Count == 0 && discardPile.Count >= 1 && hasEmptySlots())
+        if (deck.Count == 0 && discardPile.Count >= 1 && hand.Count <3)
         {
             deck.AddRange(discardPile);
             discardPile.Clear();
@@ -27,16 +31,16 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < availableCardSlots.Length; i++)
             {
-                if(availableCardSlots[i] == true)
+                if(hand.Count < 3)
                 {
                     var card = deck[0];
-                    card.gameObject.SetActive(true);
-                    card.handIndex = i;
-                    card.hasBeenPlayed = false;
-                    card.transform.position = cardSlots[i].position;
-                    availableCardSlots[i] = false;
-                    deck.Remove(card);
+                    card.SetActive(true);
                     hand.Add(card);
+                    deck.Remove(card);
+                    card.GetComponent<CardDisplay>().hasBeenPlayed = false;
+                    card.transform.position = start.position;
+                    deckSize.text = deck.Count.ToString();
+                    FitCards();
                     return;
                 }
                 
@@ -45,16 +49,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool hasEmptySlots()
+    public void playCard()
     {
-        for (int i = 0; i < availableCardSlots.Length; i++)
-        {
-            if(availableCardSlots[i] == true)
-            {
-                return true;
-            }
-        }
-        return false;
+        
+
     }
 
     public void shuffle()
@@ -68,26 +66,49 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void FitCards()
+    {
+        gap = 1.0f;
+        if(hand.Count == 0)
+        {
+            return;
+        }
 
+        for(int i = 0; i < hand.Count; i++)
+        {
+            GameObject obj = hand[i];
+            obj.transform.position = start.position;
+            obj.transform.position += new Vector3((float)(-i * 150.0f)+ 150.0f, 0, 0);
+        }      
+    }
 
     private void Awake()
     {
         Instance = this;
     }
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        int count = 1;
+        foreach (Card i in startDeck.cards)
+        {
+            GameObject newCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            newCard.GetComponent<CardDisplay>().card = i;
+            newCard.GetComponent<CardDisplay>().load();
+            newCard.name = "Card" + count.ToString();
+            newCard.transform.SetParent(start.transform, false);
+            count++;
+            deck.Add(newCard);
+        }
+        shuffle();
+        deckSize.text = deck.Count.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        deckSize.text = deck.Count.ToString();
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            drawCard();
-        }
+        
     }
 }

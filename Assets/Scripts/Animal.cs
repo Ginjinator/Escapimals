@@ -10,7 +10,7 @@ public class Animal : MonoBehaviour
 
     public int totalEnergy;
     // Each animal will have it's own deck that get's shuffled together to form the main deck
-    public List<Card> deck = new List<Card>();
+    public List<Cards> deck = new List<Cards>();
 
     public Animal(string name)
     {
