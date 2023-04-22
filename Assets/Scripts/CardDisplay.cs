@@ -43,9 +43,17 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
+        if (gm.party.isPackLeader(card))
+        {
+            manaText.text = (2 * card.manacost).ToString();
+        }
+        else
+        {
+            manaText.text = card.manacost.ToString();
+        }
         nameText.text = card.name;
         descriptionText.text = card.description;
-        manaText.text = card.manacost.ToString();
+        
         artworkImage.sprite = card.artwork;
     }
 
@@ -55,19 +63,33 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         if(hasBeenPlayed == false)
         {
             Debug.Log("Clicked Card");
-            transform.position += Vector3.up * 10;
+            transform.position += Vector3.up * 150;
             hasBeenPlayed = true;
-            Invoke("moveToDiscardPile", 2f);
+            gm.discardPile.Add(this.gameObject);
+            gm.hand.Remove(this.gameObject);
+            gm.FitCards();
+            Invoke("moveToDiscardPile", 1f);
         }
         
     }
+
+    public void OnMouseEnter()
+    {
+        Debug.Log("Hovering");
+        transform.localScale = new Vector2(1.2f, 1.2f);
+    }
+
+    public void OnMouseExit()
+    {
+        Debug.Log("Dropping");
+        transform.localScale = new Vector2(1.0f, 1.0f);
+    }
+
 
 
     public void moveToDiscardPile()
     {
         gameObject.SetActive(false);
-        gm.discardPile.Add(this.gameObject);
-        gm.hand.Remove(this.gameObject);
         Debug.Log("Card in Discard");
     }
 

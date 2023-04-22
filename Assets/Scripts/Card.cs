@@ -9,4 +9,5 @@ public class Card : ScriptableObject
     public Sprite artwork;
     public int manacost;
     public string description;
+    public Animal owner;
 }

@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> discardPile = new List<GameObject>();
     public Text deckSize;
     public Transform start;
-    public Deck startDeck;
+    public List<Card> partyDeck;
+    public Party party;
     private double gap;
 
     public void drawCard()
@@ -68,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     public void FitCards()
     {
-        gap = 1.0f;
+        gap = 150.0f;
         if(hand.Count == 0)
         {
             return;
@@ -78,7 +79,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject obj = hand[i];
             obj.transform.position = start.position;
-            obj.transform.position += new Vector3((float)(-i * 150.0f)+ 150.0f, 0, 0);
+            obj.transform.position += new Vector3((float)(-i * gap)+ 150.0f, 0, 0);
         }      
     }
 
@@ -92,7 +93,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         int count = 1;
-        foreach (Card i in startDeck.cards)
+        partyDeck = party.partyDeck;
+        foreach (Card i in partyDeck)
         {
             GameObject newCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             newCard.GetComponent<CardDisplay>().card = i;
