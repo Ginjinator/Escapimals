@@ -13,6 +13,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     public Text manaText;
     public bool hasBeenPlayed;
     public int handIndex;
+    public Image owner;
     public static GameManager gm;
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         descriptionText.text = card.description;
         manaText.text = card.manacost.ToString();
         artworkImage.sprite = card.artwork;
+        owner.sprite = card.owner.artwork;
         gm = FindObjectOfType<GameManager>();
     }
     public void load()
@@ -29,6 +31,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         descriptionText.text = card.description;
         manaText.text = card.manacost.ToString();
         artworkImage.sprite = card.artwork;
+        owner.sprite = card.owner.artwork;
         gm = FindObjectOfType<GameManager>();
     }
 
@@ -39,6 +42,7 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         descriptionText.text = card.description;
         manaText.text = card.manacost.ToString();
         artworkImage.sprite = card.artwork;
+        owner.sprite = card.owner.artwork;
     }
 
     private void Update()

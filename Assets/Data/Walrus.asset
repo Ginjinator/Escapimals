@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d53c109e837f674fb8982cbda0dd144, type: 3}
   m_Name: Walrus
   m_EditorClassIdentifier: 
-  animalName: 
-  playerClassType: {fileID: 0}
-  totalEnergy: 0
-  starterDeck: {fileID: 0}
+  animalName: Walrus
+  playerClassType: light
+  artwork: {fileID: 21300000, guid: d7865c3602c34914386a262ead576651, type: 3}
+  health: 17
+  totalEnergy: 3
+  starterDeck: {fileID: 11400000, guid: d896d3a6a63788b4abce83d8ccc674c4, type: 2}

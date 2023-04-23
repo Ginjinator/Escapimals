@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         int count = 1;
+        Debug.Log(party.partyDeck.Count);
         partyDeck = party.partyDeck;
         foreach (Card i in partyDeck)
         {

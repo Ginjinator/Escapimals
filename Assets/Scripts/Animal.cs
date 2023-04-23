@@ -9,6 +9,8 @@ public class Animal : ScriptableObject
     //Light, medium, heavy, etc
     public string playerClassType;
 
+    public Sprite artwork;
+    public int health;
     public int totalEnergy;
     // Each animal will have it's own deck that get's shuffled together to form the main deck
     public Deck starterDeck;

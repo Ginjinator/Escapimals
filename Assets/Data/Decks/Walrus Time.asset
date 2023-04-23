@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c150c601fb4a1ee4fa27fcd20d32eccd, type: 3}
   m_Name: Walrus Time
   m_EditorClassIdentifier: 
-  cards: []
+  cards:
+  - {fileID: 11400000, guid: 6212c833dc848aa47a6ea872eca4db7e, type: 2}
+  - {fileID: 11400000, guid: 6212c833dc848aa47a6ea872eca4db7e, type: 2}
+  - {fileID: 11400000, guid: 6212c833dc848aa47a6ea872eca4db7e, type: 2}
+  - {fileID: 11400000, guid: d1a7309d5c603084a9b4e1937bb6bd4b, type: 2}
+  - {fileID: 11400000, guid: d1a7309d5c603084a9b4e1937bb6bd4b, type: 2}
