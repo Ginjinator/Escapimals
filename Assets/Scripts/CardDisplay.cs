@@ -15,54 +15,64 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     public int handIndex;
     public Image owner;
     public static GameManager gm;
+    private bool packLead;
     // Start is called before the first frame update
     void Start()
     {
-        nameText.text = card.name;
-        descriptionText.text = card.description;
-        manaText.text = card.manacost.ToString();
-        artworkImage.sprite = card.artwork;
-        owner.sprite = card.owner.artwork;
         gm = FindObjectOfType<GameManager>();
     }
     public void load()
     {
+        gm = FindObjectOfType<GameManager>();
         nameText.text = card.name;
-        descriptionText.text = card.description;
-        manaText.text = card.manacost.ToString();
+        
+        manaText.text = card.name;
         artworkImage.sprite = card.artwork;
         owner.sprite = card.owner.artwork;
-        gm = FindObjectOfType<GameManager>();
+        packLead = gm.party.isPackLeader(card);
+        string tempDescription = "";
+        for (int i = 0; i < card.cardEffects.Count; i++)
+        {
+            tempDescription += card.cardEffects[i].getDescription(packLead && !card.cardEffects[i].eff.name.Contains("draw"));
+        }
+        descriptionText.text = tempDescription;
     }
 
-    void updateCard(Card newCard)
-    {
-        card = newCard;
-        nameText.text = card.name;
-        descriptionText.text = card.description;
-        manaText.text = card.manacost.ToString();
-        artworkImage.sprite = card.artwork;
-        owner.sprite = card.owner.artwork;
-    }
 
     private void Update()
     {
-        if (gm.party.isPackLeader(card))
-        {
-            manaText.text = (2 * card.manacost).ToString();
-        }
-        else
-        {
-            manaText.text = card.manacost.ToString();
-        }
+        manaText.text = card.manacost.ToString();
         nameText.text = card.name;
-        descriptionText.text = card.description;
+        string tempDescription = "";
+        for (int i = 0; i < card.cardEffects.Count; i++)
+        {
+            tempDescription += card.cardEffects[i].getDescription(packLead && !card.cardEffects[i].eff.name.Contains("draw"));
+        }
+        descriptionText.text = tempDescription;
         
         artworkImage.sprite = card.artwork;
     }
 
 
     public void OnPointerClick(PointerEventData eventData)
+    {
+        playCard();
+        
+    }
+
+    public void OnMouseEnter()
+    {
+        transform.localScale = new Vector2(1.2f, 1.2f);
+    }
+
+    public void OnMouseExit()
+    {
+
+        transform.localScale = new Vector2(1.0f, 1.0f);
+    }
+
+
+    public void playCard()
     {
         if(hasBeenPlayed == false)
         {
@@ -71,24 +81,11 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
             hasBeenPlayed = true;
             gm.discardPile.Add(this.gameObject);
             gm.hand.Remove(this.gameObject);
+            gm.resolveEffects(card, packLead);
             gm.FitCards();
-            Invoke("moveToDiscardPile", 1f);
+            Invoke("moveToDiscardPile", 2f);
         }
-        
     }
-
-    public void OnMouseEnter()
-    {
-        Debug.Log("Hovering");
-        transform.localScale = new Vector2(1.2f, 1.2f);
-    }
-
-    public void OnMouseExit()
-    {
-        Debug.Log("Dropping");
-        transform.localScale = new Vector2(1.0f, 1.0f);
-    }
-
 
 
     public void moveToDiscardPile()

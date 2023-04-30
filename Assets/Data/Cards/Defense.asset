@@ -16,3 +16,13 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: c1c8be4415746a34b848689598b1b242, type: 3}
   manacost: 5
   description: I'm a big chungi
+  owner: {fileID: 11400000, guid: ffe9b7232aee9c34b93276192f5667c3, type: 2}
+  effects:
+  - {fileID: 11400000, guid: eac51032b563dfa458f0b0bd0f3b2482, type: 2}
+  - {fileID: 11400000, guid: 225d2ffa9f253654da204210aaa7ce18, type: 2}
+  effectModifiers: 0a00000002000000
+  cardEffects:
+  - eff: {fileID: 11400000, guid: eac51032b563dfa458f0b0bd0f3b2482, type: 2}
+    modifier: 8
+    targets: self
+  isUpgraded: 0

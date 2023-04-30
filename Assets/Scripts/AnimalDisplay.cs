@@ -8,6 +8,8 @@ public class AnimalDisplay : MonoBehaviour
    
     public Image artwork;
     public Text health;
+    public Text defense;
+    public int defenseValue;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,6 @@ public class AnimalDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        defense.text = defenseValue.ToString();
     }
 }

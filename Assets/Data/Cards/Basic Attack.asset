@@ -16,3 +16,12 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: d7865c3602c34914386a262ead576651, type: 3}
   manacost: 2
   description: This is a little hit. It shouldn't hurt too bad
+  owner: {fileID: 11400000, guid: ffe9b7232aee9c34b93276192f5667c3, type: 2}
+  effects:
+  - {fileID: 11400000, guid: e2189f37645184340aadf6e53f4b5064, type: 2}
+  effectModifiers: 07000000
+  cardEffects:
+  - eff: {fileID: 11400000, guid: e2189f37645184340aadf6e53f4b5064, type: 2}
+    modifier: 5
+    targets: enemy
+  isUpgraded: 0
