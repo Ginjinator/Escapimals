@@ -16,3 +16,12 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: dffa694535cf1c6458f3143edbc8e3d3, type: 3}
   manacost: 5
   description: You ain't getting hit by nothing
+  owner: {fileID: 11400000, guid: 69a45d4c4dceca34dbd2b57aef427176, type: 2}
+  effects:
+  - {fileID: 11400000, guid: a547b20312066dc478a3b40187f554a8, type: 2}
+  effectModifiers: 08000000
+  cardEffects:
+  - eff: {fileID: 11400000, guid: a547b20312066dc478a3b40187f554a8, type: 2}
+    modifier: 9
+    targets: all
+  isUpgraded: 0

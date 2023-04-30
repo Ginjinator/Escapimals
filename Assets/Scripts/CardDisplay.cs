@@ -13,61 +13,84 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     public Text manaText;
     public bool hasBeenPlayed;
     public int handIndex;
+    public Image owner;
     public static GameManager gm;
+    private bool packLead;
     // Start is called before the first frame update
     void Start()
     {
-        nameText.text = card.name;
-        descriptionText.text = card.description;
-        manaText.text = card.manacost.ToString();
-        artworkImage.sprite = card.artwork;
         gm = FindObjectOfType<GameManager>();
     }
     public void load()
     {
-        nameText.text = card.name;
-        descriptionText.text = card.description;
-        manaText.text = card.manacost.ToString();
-        artworkImage.sprite = card.artwork;
         gm = FindObjectOfType<GameManager>();
+        nameText.text = card.name;
+        
+        manaText.text = card.name;
+        artworkImage.sprite = card.artwork;
+        owner.sprite = card.owner.artwork;
+        packLead = gm.party.isPackLeader(card);
+        string tempDescription = "";
+        for (int i = 0; i < card.cardEffects.Count; i++)
+        {
+            tempDescription += card.cardEffects[i].getDescription(packLead && !card.cardEffects[i].eff.name.Contains("draw"));
+        }
+        descriptionText.text = tempDescription;
     }
 
-    void updateCard(Card newCard)
-    {
-        card = newCard;
-        nameText.text = card.name;
-        descriptionText.text = card.description;
-        manaText.text = card.manacost.ToString();
-        artworkImage.sprite = card.artwork;
-    }
 
     private void Update()
     {
-        nameText.text = card.name;
-        descriptionText.text = card.description;
         manaText.text = card.manacost.ToString();
+        nameText.text = card.name;
+        string tempDescription = "";
+        for (int i = 0; i < card.cardEffects.Count; i++)
+        {
+            tempDescription += card.cardEffects[i].getDescription(packLead && !card.cardEffects[i].eff.name.Contains("draw"));
+        }
+        descriptionText.text = tempDescription;
+        
         artworkImage.sprite = card.artwork;
     }
 
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        playCard();
+        
+    }
+
+    public void OnMouseEnter()
+    {
+        transform.localScale = new Vector2(1.2f, 1.2f);
+    }
+
+    public void OnMouseExit()
+    {
+
+        transform.localScale = new Vector2(1.0f, 1.0f);
+    }
+
+
+    public void playCard()
+    {
         if(hasBeenPlayed == false)
         {
             Debug.Log("Clicked Card");
-            transform.position += Vector3.up * 10;
+            transform.position += Vector3.up * 150;
             hasBeenPlayed = true;
+            gm.discardPile.Add(this.gameObject);
+            gm.hand.Remove(this.gameObject);
+            gm.resolveEffects(card, packLead);
+            gm.FitCards();
             Invoke("moveToDiscardPile", 2f);
         }
-        
     }
 
 
     public void moveToDiscardPile()
     {
         gameObject.SetActive(false);
-        gm.discardPile.Add(this.gameObject);
-        gm.hand.Remove(this.gameObject);
         Debug.Log("Card in Discard");
     }
 

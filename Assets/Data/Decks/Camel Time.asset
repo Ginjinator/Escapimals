@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c150c601fb4a1ee4fa27fcd20d32eccd, type: 3}
+  m_Name: Camel Time
+  m_EditorClassIdentifier: 
+  cards:
+  - {fileID: 11400000, guid: b673cd17d6fea344b80fbfd1bdd1eeb7, type: 2}
+  - {fileID: 11400000, guid: b673cd17d6fea344b80fbfd1bdd1eeb7, type: 2}
+  - {fileID: 11400000, guid: b673cd17d6fea344b80fbfd1bdd1eeb7, type: 2}
+  - {fileID: 11400000, guid: 72f3b4d92ca8c9e48a36c243a3d4bd2f, type: 2}
+  - {fileID: 11400000, guid: 72f3b4d92ca8c9e48a36c243a3d4bd2f, type: 2}

@@ -16,22 +16,23 @@ public class GameManager : MonoBehaviour
     public List<GameObject> discardPile = new List<GameObject>();
     public Text deckSize;
     public Transform start;
-    public Deck startDeck;
+    public List<Card> partyDeck;
+    public Party party;
     private double gap;
 
-    public void drawCard()
+    public void drawCard(int amount)
     {
-        if (deck.Count == 0 && discardPile.Count >= 1 && hand.Count <3)
+        for(int i = 0; i < amount; i++)
         {
-            deck.AddRange(discardPile);
-            discardPile.Clear();
-            shuffle();
-        }
-        if (deck.Count >= 1)
-        {
-            for (int i = 0; i < availableCardSlots.Length; i++)
+            if (deck.Count == 0 && discardPile.Count >= 1 && hand.Count < 3)
             {
-                if(hand.Count < 3)
+                deck.AddRange(discardPile);
+                discardPile.Clear();
+                shuffle();
+            }
+            if (deck.Count >= 1)
+            {
+                if (hand.Count < 3)
                 {
                     var card = deck[0];
                     card.SetActive(true);
@@ -41,19 +42,16 @@ public class GameManager : MonoBehaviour
                     card.transform.position = start.position;
                     deckSize.text = deck.Count.ToString();
                     FitCards();
-                    return;
                 }
-                
+                else
+                {
+                    Debug.Log("Reached Max Hand Size");
+                }
             }
-
         }
     }
 
-    public void playCard()
-    {
-        
-
-    }
+ 
 
     public void shuffle()
     {
@@ -68,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     public void FitCards()
     {
-        gap = 1.0f;
+        gap = 150.0f;
         if(hand.Count == 0)
         {
             return;
@@ -78,8 +76,47 @@ public class GameManager : MonoBehaviour
         {
             GameObject obj = hand[i];
             obj.transform.position = start.position;
-            obj.transform.position += new Vector3((float)(-i * 150.0f)+ 150.0f, 0, 0);
+            obj.transform.position += new Vector3((float)(-i * gap)+ 150.0f, 0, 0);
         }      
+    }
+
+
+    public void resolveEffects(Card card, bool packLead)
+    {
+        for (int i = 0; i < card.cardEffects.Count; i++)
+        {
+            var effect = card.cardEffects[i];
+            int modifier = packLead && !card.cardEffects[i].eff.name.Contains("draw") ? (int)effect.modifier * 2 : effect.modifier;
+            Debug.Log(effect.eff.name + " " + modifier.ToString());
+            switch (effect.eff.name)
+            {
+                case "damage-target":
+                    party.displays[0].defenseValue -= modifier;
+                    break;
+                case "damage-all":
+                    foreach (AnimalDisplay a in party.displays)
+                    {
+                        a.defenseValue -= modifier;
+                    }
+                    break;
+                case "block-target":
+                    party.displays[0].defenseValue += modifier;
+                    break;
+                case "block-all":
+                    foreach (AnimalDisplay a in party.displays)
+                    {
+                        a.defenseValue += modifier;
+                    }
+                    break;
+                case "draw":
+                    drawCard(modifier);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
     }
 
     private void Awake()
@@ -92,7 +129,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         int count = 1;
-        foreach (Card i in startDeck.cards)
+        partyDeck = party.partyDeck;
+        foreach (Card i in partyDeck)
         {
             GameObject newCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             newCard.GetComponent<CardDisplay>().card = i;

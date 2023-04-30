@@ -16,3 +16,15 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: f116204262f9bd7459dfee54708f764c, type: 3}
   manacost: 3
   description: 'You smack em real good. '
+  owner: {fileID: 11400000, guid: 69a45d4c4dceca34dbd2b57aef427176, type: 2}
+  effects:
+  - {fileID: 11400000, guid: 84fa6dfdde81f3f4b83ee65f440dcc3f, type: 2}
+  effectModifiers: 05000000
+  cardEffects:
+  - eff: {fileID: 11400000, guid: 84fa6dfdde81f3f4b83ee65f440dcc3f, type: 2}
+    modifier: 10
+    targets: all
+  - eff: {fileID: 11400000, guid: 225d2ffa9f253654da204210aaa7ce18, type: 2}
+    modifier: 1
+    targets: none
+  isUpgraded: 0

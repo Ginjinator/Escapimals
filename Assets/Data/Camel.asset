@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d53c109e837f674fb8982cbda0dd144, type: 3}
+  m_Name: Camel
+  m_EditorClassIdentifier: 
+  animalName: Camel
+  playerClassType: medium
+  artwork: {fileID: 21300000, guid: dffa694535cf1c6458f3143edbc8e3d3, type: 3}
+  health: 12
+  totalEnergy: 4
+  starterDeck: {fileID: 11400000, guid: a93dc277827d0d14fb18652660c52bab, type: 2}
