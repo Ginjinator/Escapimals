@@ -32,11 +32,13 @@ public class EnemyParty : MonoBehaviour
             int randomEnemy = Random.Range(0, enemyParty.Count);
             Enemy e = enemyParty[randomEnemy];
             GameObject enemy = Instantiate(EnemyPrefab, spawnLocations[spawn].position, Quaternion.identity);
+            //e.generateEffects();
+            e.generateAction();
             enemy.GetComponent<EnemyDisplay>().artwork.sprite = e.artwork;
-            enemy.GetComponent<EnemyDisplay>().health.text = modifyEnemyHealth(e.baseHealth).ToString();
+            enemy.GetComponent<EnemyDisplay>().health.text = e.modifyEnemyHealth(e.baseHealth).ToString();
             enemy.GetComponent<EnemyDisplay>().enemyName.text = e.enemyName.ToString();
             enemy.GetComponent<EnemyDisplay>().action.sprite = e.action;
-            enemy.GetComponent<EnemyDisplay>().actionAmount.text = generateEnemyActionAmount().ToString();
+            enemy.GetComponent<EnemyDisplay>().actionAmount.text = e.actionAmount.ToString();
             enemy.transform.SetParent(spawnLocations[spawn], false);
             enemy.transform.position = spawnLocations[spawn].position;
         }
@@ -46,16 +48,4 @@ public class EnemyParty : MonoBehaviour
 
     }
 
-    //Maybe add variable for if enemy is boss or random chance for harder enemy
-    public int modifyEnemyHealth(int baseHealth) {
-        int modifier = Random.Range(0, 9);
-
-        return baseHealth + modifier;
-    }
-
-    public int generateEnemyActionAmount(){
-        int actionAmount = Random.Range(2, 6);
-
-        return actionAmount;
-    }
 }
