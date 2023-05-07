@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, ENDTURN, WON, LOST }
+
 public class GameManager : MonoBehaviour
 {
     public bool[] availableCardSlots;
@@ -14,11 +17,13 @@ public class GameManager : MonoBehaviour
     public List<GameObject> deck = new List<GameObject>();
     public List<GameObject> hand = new List<GameObject>();
     public List<GameObject> discardPile = new List<GameObject>();
+    public List<GameObject> enemies = new List<GameObject>();
     public Text deckSize;
     public Transform start;
     public List<Card> partyDeck;
     public Party party;
     private double gap;
+    public BattleState state;
 
     public void drawCard(int amount)
     {
@@ -119,14 +124,36 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Awake()
+    public void discardCard(int amount)
     {
-        Instance = this;
+        for (int i = amount - 1; i >= 0 ; i--)
+        {
+            var discard = hand[i];
+            discardPile.Add(discard);
+            hand.Remove(discard);
+            discard.SetActive(false);
+        }
     }
 
+    public void endTurn()
+    {
+        if(state == BattleState.PLAYERTURN)
+        {
+            state = BattleState.ENEMYTURN;
+            enemyTurn();
+        }
+        else if(state == BattleState.ENDTURN)
+        {
+            // discard hand
+            discardCard(hand.Count);
+            // draw new hand
+            drawCard(3);
+            // set to player's turn
+            state = BattleState.PLAYERTURN;
+        }
+    }
 
-    // Start is called before the first frame update
-    void Start()
+    public void battleStart()
     {
         int count = 1;
         partyDeck = party.partyDeck;
@@ -141,7 +168,32 @@ public class GameManager : MonoBehaviour
             deck.Add(newCard);
         }
         shuffle();
+        drawCard(3);
         deckSize.text = deck.Count.ToString();
+        state = BattleState.PLAYERTURN;
+    }
+
+    public void enemyTurn()
+    {
+        foreach (GameObject enemy in enemies)
+        {
+            party.displays[0].defenseValue -= int.Parse(enemy.GetComponent<EnemyDisplay>().actionAmount.text);
+        }
+        state = BattleState.ENDTURN;
+        endTurn();
+    }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        state = BattleState.START;
+        battleStart();
     }
 
     // Update is called once per frame

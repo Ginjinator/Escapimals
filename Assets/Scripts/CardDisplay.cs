@@ -56,8 +56,10 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        playCard();
-        
+        if(gm.state == BattleState.PLAYERTURN)
+        {
+            playCard();
+        }
     }
 
     public void OnMouseEnter()

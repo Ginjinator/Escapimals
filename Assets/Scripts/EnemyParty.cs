@@ -7,6 +7,7 @@ public class EnemyParty : MonoBehaviour
     public List<Enemy> enemyParty;
     public GameObject EnemyPrefab;
     public List<Transform> spawnLocations;
+    public static GameManager gm;
 
     void Start() {
 
@@ -27,6 +28,7 @@ public class EnemyParty : MonoBehaviour
         //    Debug.Log("Enemy Position:" + enemy.transform.position);       
         //}
 
+        gm = FindObjectOfType<GameManager>();
         for (var spawn = 0; spawn < spawnLocations.Count; spawn++)
         {
             int randomEnemy = Random.Range(0, enemyParty.Count);
@@ -39,6 +41,7 @@ public class EnemyParty : MonoBehaviour
             enemy.GetComponent<EnemyDisplay>().actionAmount.text = generateEnemyActionAmount().ToString();
             enemy.transform.SetParent(spawnLocations[spawn], false);
             enemy.transform.position = spawnLocations[spawn].position;
+            gm.enemies.Add(enemy);
         }
     }
 
