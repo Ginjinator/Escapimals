@@ -124,9 +124,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void discardCard(int amount)
+    public void discardHand()
     {
-        for (int i = amount - 1; i >= 0 ; i--)
+        var size = hand.Count - 1;
+        for (int i = size; i >= 0; i--)
         {
             var discard = hand[i];
             discardPile.Add(discard);
@@ -145,7 +146,7 @@ public class GameManager : MonoBehaviour
         else if(state == BattleState.ENDTURN)
         {
             // discard hand
-            discardCard(hand.Count);
+            discardHand();
             // draw new hand
             drawCard(3);
             // set to player's turn
