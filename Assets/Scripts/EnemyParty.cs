@@ -33,9 +33,10 @@ public class EnemyParty : MonoBehaviour
             Enemy e = enemyParty[randomEnemy];
             GameObject enemy = Instantiate(EnemyPrefab, spawnLocations[spawn].position, Quaternion.identity);
             //e.generateEffects();
-            e.generateAction();
+            enemy.GetComponent<EnemyDisplay>().enemy = e;
+            enemy.GetComponent<EnemyDisplay>().generateAction();
             enemy.GetComponent<EnemyDisplay>().artwork.sprite = e.artwork;
-            enemy.GetComponent<EnemyDisplay>().health.text = e.modifyEnemyHealth(e.baseHealth).ToString();
+            enemy.GetComponent<EnemyDisplay>().health.text = enemy.GetComponent<EnemyDisplay>().modifyEnemyHealth(e.baseHealth).ToString();
             enemy.GetComponent<EnemyDisplay>().enemyName.text = e.enemyName.ToString();
             enemy.GetComponent<EnemyDisplay>().action.sprite = e.action;
             enemy.GetComponent<EnemyDisplay>().actionAmount.text = e.actionAmount.ToString();
