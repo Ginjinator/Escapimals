@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7488e95b7c0a24b86b1b4dc2959ab1, type: 3}
+  m_Name: Boss Man
+  m_EditorClassIdentifier: 
+  enemyName: Boss Man
+  artwork: {fileID: 21300000, guid: 25096ce515c063c48a2bd6b108c95912, type: 3}
+  baseHealth: 10
+  defenseAmount: 0
+  action: {fileID: 0}
+  attackSprite: {fileID: 21300000, guid: 62ce01ddca719d34ea9648c586a7cc94, type: 3}
+  defenseSprite: {fileID: 21300000, guid: d4d64a6cd9624c34a815dd79fb2a20a4, type: 3}
+  specialSprite1: {fileID: 21300000, guid: e92fc44f12c21dd44a49e390f39f7ffd, type: 3}
+  actionAmount: 0
+  currentEffect: {fileID: 11400000, guid: 8e150c9aa5b0bb84089e182da3ea952a, type: 2}
+  effects:
+  - {fileID: 11400000, guid: 63ef86fc94514504f83c8be7d217ac61, type: 2}
+  - {fileID: 11400000, guid: 8e150c9aa5b0bb84089e182da3ea952a, type: 2}
+  - {fileID: 11400000, guid: d0bccd8f2bc5f0246b631c79983c1dab, type: 2}
+  effectModifiers: 05000000
+  actionEffects:
+  - eff: {fileID: 11400000, guid: 63ef86fc94514504f83c8be7d217ac61, type: 2}
+    modifier: 5
+    range: 0
+  - eff: {fileID: 11400000, guid: 8e150c9aa5b0bb84089e182da3ea952a, type: 2}
+    modifier: 5
+    range: 0
+  - eff: {fileID: 11400000, guid: d0bccd8f2bc5f0246b631c79983c1dab, type: 2}
+    modifier: 5
+    range: 0

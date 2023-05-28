@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57b2007da3245684c98b1eb1b46a592c, type: 3}
-  m_Name: attack
+  m_Name: enemy-defend
   m_EditorClassIdentifier: 
-  effectDesciption: attack
-  target: animal
+  effectDesciption: defendEnemy
+  target: self

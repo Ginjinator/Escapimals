@@ -9,12 +9,15 @@ public class Enemy : ScriptableObject
 
     public Sprite artwork;
     public int baseHealth;
+    public int defenseAmount;
 
     //Attack and damamge or block amount
     public Sprite action;
     public Sprite attackSprite;
     public Sprite defenseSprite;
+    public Sprite specialSprite1;
     public int actionAmount;
+    public Effect currentEffect;
     public List<Effect> effects;
     public List<int> effectModifiers;
     public List<actionEffect> actionEffects;

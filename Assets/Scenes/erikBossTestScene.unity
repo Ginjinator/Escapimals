@@ -674,7 +674,7 @@ MonoBehaviour:
   - {fileID: 1199326421}
   - {fileID: 1355934617}
   - {fileID: 1494351637}
-  isBossLevel: 0
+  isBossLevel: 1
 --- !u!224 &658482249
 RectTransform:
   m_ObjectHideFlags: 0
